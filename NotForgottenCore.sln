@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotForgottenCore", "NotForgottenCore\NotForgottenCore.csproj", "{411361AB-1E8A-4AF7-916A-DB27E9D029AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{411361AB-1E8A-4AF7-916A-DB27E9D029AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{411361AB-1E8A-4AF7-916A-DB27E9D029AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{411361AB-1E8A-4AF7-916A-DB27E9D029AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{411361AB-1E8A-4AF7-916A-DB27E9D029AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {24D48FA7-70E1-47F8-8EA6-3D647BF5D541}
+	EndGlobalSection
+EndGlobal
