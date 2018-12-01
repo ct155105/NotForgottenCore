@@ -1,0 +1,51 @@
+﻿@model NotForgottenCore.Models.Table
+@{
+    string tableNo = Model.Id.ToString();
+    int i = Model.OpenSeats;
+    List<SelectListItem> seatList = new List<SelectListItem> { };
+    while (i > 0)
+    {
+        seatList.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+        i--;
+    }
+}
+
+<h2>
+    Table @tableNo
+</h2>
+<div>
+    <h4>Table</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label asp-for="Groups" class="control-label"></label>
+            @Html.DisplayNameFor(model => model.Groups)
+        </dt>
+        @if (Model.Groups != null && Model.Groups.Count > 0)
+        {
+            @foreach (var group in Model.Groups)
+            {
+                <dd>
+                    @group.GroupName
+                </dd>
+                if (group.Members != null && group.Members.Count > 0)
+                {
+                    @foreach (var member in group.Members)
+                    {
+                        <dd>
+                            @member.Name
+                        </dd>
+                    }
+                }
+            }
+        }
+    </dl>
+    @if (ViewData["LoggedIn"].ToString() != "true")
+    {
+        <H1>You must login to reserve a table</H1>
+    }
+    else
+    {
+        @Html.DropDownList("seats", new SelectList(seatList, "Value", "Text"), new { id = "ddList", onchange = "getchange(this);" })
+    }
+</div>

@@ -1,0 +1,19 @@
+﻿@model List<NotForgottenCore.Models.GroupMember>
+
+<h4>GroupMember</h4>
+<hr />
+@for (int i = 0; i < Model.Count; i++)
+{
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="@Model[i].GroupId" type="hidden" />
+    <div class="form-group">
+        <label asp-for="@Model[i].Name" class="control-label"></label>
+        <input asp-for="@Model[i].Name" class="form-control" />
+        <span asp-validation-for="@Model[i].Name" class="text-danger"></span>
+        <input asp-for="@Model[i].Id" type="hidden" />
+    </div>
+}
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

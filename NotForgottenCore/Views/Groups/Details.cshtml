@@ -1,0 +1,33 @@
+﻿@using NotForgottenCore.Models;
+@model NotForgottenCore.Models.Group
+
+@{
+    ViewData["Title"] = "Details";
+    List<GroupMember> members = Model.Members.ToList();
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Group</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberSeats)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberSeats)
+        </dd>
+        @Model.Members
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

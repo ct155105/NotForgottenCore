@@ -8,5 +8,6 @@ namespace NotForgottenCore.Models
     public class GroupMember : BaseModel<Guid>
     {
         public Guid GroupId { get; set; }
+        public string Name { get; set; }
     }
 }

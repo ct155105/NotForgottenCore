@@ -55,12 +55,15 @@ namespace NotForgottenCore
 
             app.UseAuthentication();
 
-            app.UseMvc();
-
-            app.Run((context) =>
+            app.UseMvc(routes =>
             {
-                throw new Exception("Hmm...Something went wrong...");
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //app.Run((context) =>
+            //{
+            //    throw new Exception("Hmm...Something went wrong...");
+            //});
         }
     }
 }

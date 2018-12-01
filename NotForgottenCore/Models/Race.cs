@@ -10,5 +10,6 @@ namespace NotForgottenCore.Models
         public int Year { get; set; }
         public int LaneId { get; set; }
         public Guid? HorseId { get; set; }
+        public Horse Horse { get; set; }
     }
 }

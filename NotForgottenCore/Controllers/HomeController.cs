@@ -20,7 +20,7 @@ namespace NotForgottenCore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok("hello from home index");
+            return View();
         }
     }
 }

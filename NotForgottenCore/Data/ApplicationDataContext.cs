@@ -27,5 +27,7 @@ namespace NotForgottenCore.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Race>().HasKey(r => new { r.Id, r.LaneId, r.Year });
         }
+
+        public DbSet<NotForgottenCore.Models.ApplicationUser> ApplicationUser { get; set; }
     }
 }

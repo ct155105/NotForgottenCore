@@ -7,7 +7,8 @@ namespace NotForgottenCore.Models
 {
     public class Table : BaseModel<int>
     {
-        public int? OpenSeats { get; set; }
-        public ICollection<Group> Groups { get; set; }
+        //Calculated via Database Trigger
+        public int OpenSeats { get; set; } = 10;
+        public List<Group> Groups { get; set; }
     }
 }
