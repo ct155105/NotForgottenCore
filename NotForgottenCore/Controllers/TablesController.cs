@@ -59,7 +59,7 @@ namespace NotForgottenCore.Controllers
 
         // GET: Groups/Create
         [HttpGet("/Groups/CreatePartial")]
-        public async Task<IActionResult> _GroupPartial(int nbrSeats, int tableId)
+        public async Task<IActionResult> _GroupCreate(int nbrSeats, int tableId)
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
             List<GroupMember> members = new List<GroupMember>();
@@ -86,7 +86,7 @@ namespace NotForgottenCore.Controllers
         }
 
         [HttpPost("/Groups/CreatePartial")]
-        public async Task<IActionResult> _GroupPartial(Group group)
+        public async Task<IActionResult> _GroupCreate(Group group)
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -105,24 +105,31 @@ namespace NotForgottenCore.Controllers
             return View(group);
         }
 
-        //[HttpGet("/_GroupMemberPartial")]
-        //public async Task<IActionResult> _GroupMemberPartial(Group group)
-        //{
-        //    return PartialView();
-        //    ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+        // GET: Groups/Create
+        [HttpGet("/Groups/DisplayPartial")]
+        public IActionResult _GroupDisplayPartial(Group group)
+        {
+            return PartialView(group);
+        }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        return PartialView();
-        //        /*
-        //        [HttpPost]
-        //        public async Task<IActionResult> _TablePartial(string tableId, string group, string seats)
-        //        {
-        //            Table.ReserveTable(tableId, group, seats);
-        //            return RedirectToAction("TableApp");
-        //        }
-        //        */
-        //    }
-        //}
-    }
+            //[HttpGet("/_GroupMemberPartial")]
+            //public async Task<IActionResult> _GroupMemberPartial(Group group)
+            //{
+            //    return PartialView();
+            //    ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            //    if (ModelState.IsValid)
+            //    {
+            //        return PartialView();
+            //        /*
+            //        [HttpPost]
+            //        public async Task<IActionResult> _TablePartial(string tableId, string group, string seats)
+            //        {
+            //            Table.ReserveTable(tableId, group, seats);
+            //            return RedirectToAction("TableApp");
+            //        }
+            //        */
+            //    }
+            //}
+        }
 }

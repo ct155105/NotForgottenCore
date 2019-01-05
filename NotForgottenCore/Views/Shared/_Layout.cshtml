@@ -5,27 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Not Forgotten Foundation</title>
     <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css?family=Marck+Script" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+    <nav class="navbar bg-dark navbar-dark navbar-expand-md fixed-top">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="justify-content-start">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                    <img src="~/images/Logo-Wt.jpg" style="width:45px;" />
+                </a>
+                <span class="navbar-text d-none d-sm-inline-block">Not Forgotten Foundation</span>
+            </span>
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navContent"
+                    aria-controls="navContent" aria-expanded="false" aria-label="Toggle Navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            @Html.ActionLink("Not Forgotten Foundation", "Index", "Home", null, new { @class = "navbar-brand ct-add-logo" })
-            <div class="navbar-collapse collapse" id="navbarSupportedContent">
-
-                <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Races", "Program", "Races", new { raceNumber = 1 }, new { @class = "nav-link" })</li>
-                </ul>
-                @*@Html.Partial("_LoginPartial")*@
+            <div class="collapse navbar-collapse" id="navContent">
+                <div class="navbar-nav ml-auto">
+                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-item nav-link ml-auto" })
+                    @Html.ActionLink("Tables", "TableApp", "Tables", null, new { @class = "nav-item nav-link ml-auto" })
+                    @Html.ActionLink("Races", "Index", "Races", null, new { @class = "nav-item nav-link ml-auto" })
+                    @Html.ActionLink("Register", "Register", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
+                    @Html.ActionLink("Login", "Login", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
+                </div>
             </div>
         </div>
     </nav>
+    @*<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @Html.ActionLink("Not Forgotten Foundation", "Index", "Home", null, new { @class = "navbar-brand ct-add-logo" })
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
 
-    <div class="container body-content">
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Races", "Program", "Races", new { raceNumber = 1 }, new { @class = "nav-link" })</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>*@
+    <br />
+    <div class="container body-content mt-5">
         @RenderBody()
         <hr />
         <footer>

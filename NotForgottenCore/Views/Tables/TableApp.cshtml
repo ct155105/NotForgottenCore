@@ -9,10 +9,10 @@
 @{
     List<Table> tables = Model.ToList();
     ViewBag.Title = "TableApp";
-    string table1 = "images/tables/Table" + tables[0].OpenSeats.ToString() + ".png";
-    string table2 = "images/tables/Table" + tables[1].OpenSeats.ToString() + ".png";
     string table3 = "images/tables/Table" + tables[2].OpenSeats.ToString() + ".png";
     string table4 = "images/tables/Table" + tables[3].OpenSeats.ToString() + ".png";
+    string table2 = "images/tables/Table" + tables[1].OpenSeats.ToString() + ".png";
+    string table1 = "images/tables/Table" + tables[0].OpenSeats.ToString() + ".png";
     string table5 = "images/tables/Table" + tables[4].OpenSeats.ToString() + ".png";
     string table6 = "images/tables/Table" + tables[5].OpenSeats.ToString() + ".png";
     string table7 = "images/tables/Table" + tables[6].OpenSeats.ToString() + ".png";
@@ -21,13 +21,11 @@
 
 
 <div class="container-fluid justify-content-center">
-    <div class="display-4 text-center">
+    <div class="display-4 text-center" id="intro">
         Reserve your seats!
     </div>
     <br />
     <div id="seatData">
-    </div>
-    <div id="seatData2">
     </div>
 </div>
 <hr />
@@ -139,9 +137,9 @@
             $.get("@Url.Action("_TablePartial", "Tables")?Id=" + id, function (res) {
                 $('#seatData').html(res);
             });
+            document.getElementById("intro").innerHTML = "";
         });
         function getchange(sel) {
-            alert(sel.value);
             $.get("@Url.Action("CreatePartial", "Groups")?nbrSeats=" + sel.value + "&tableId=" + id, function (res2) {
                 $('#seatData2').html(res2);
             });

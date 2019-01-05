@@ -1,0 +1,23 @@
+﻿@model NotForgottenCore.Models.Group
+@using NotForgottenCore.Models
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="_GroupCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GroupName" class="control-label"></label>
+                <input asp-for="GroupName" class="form-control" />
+                <span asp-validation-for="GroupName" class="text-danger"></span>
+            </div>
+            <input asp-for="NumberSeats" type="hidden" />
+            <input asp-for="TableId" type="hidden" />
+            <input asp-for="Id" type="hidden" />
+            <partial name="_GroupMemberPartial" for="Members" />
+            <div class="form-group">
+                <input type="submit" value="Reserve" class="btn btn-block btn-success mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
