@@ -1,0 +1,11 @@
+﻿@model List<NotForgottenCore.Models.Race>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@foreach (var lane in @Model)
+{
+    <div class="row">
+        <partial name="_LanePartial" model="lane" />
+    </div>
+}

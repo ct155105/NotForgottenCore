@@ -10,6 +10,7 @@ namespace NotForgottenCore.Models
         public string Name { get; set; }
         public string Trainer { get; set; }
         public Guid ApplicationUserId { get; set; }
+        public ApplicationUser Owner { get; set; }
         public ICollection<Race> Races { get; set; }
 
         public override void GetId()

@@ -10,13 +10,23 @@ namespace NotForgottenCore.Models
 {
     public class ApplicationUser : IdentityUser<Guid> 
     {
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string Zip { get; set; }
+        [Required]
+        public override string Email { get => base.Email; set => base.Email = value; }
 
         [NotMapped]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        [NotMapped]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Confirm Password required")]
+        [CompareAttribute("Password", ErrorMessage = "Password doesn't match.")]
+        public string ConfirmPassword { get; set; }
 
         public ICollection<Horse> Horses { get; set; }
         public ICollection<Group> Groups { get; set; }

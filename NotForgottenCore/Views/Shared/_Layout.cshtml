@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Not Forgotten Foundation</title>
     <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Marck+Script" rel="stylesheet">
 </head>
 <body>
@@ -26,8 +27,17 @@
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-item nav-link ml-auto" })
                     @Html.ActionLink("Tables", "TableApp", "Tables", null, new { @class = "nav-item nav-link ml-auto" })
                     @Html.ActionLink("Races", "Index", "Races", null, new { @class = "nav-item nav-link ml-auto" })
-                    @Html.ActionLink("Register", "Register", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
-                    @Html.ActionLink("Login", "Login", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
+                    @{ if (!User.Identity.IsAuthenticated)
+                        {
+
+                            @Html.ActionLink("Register", "Register", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
+                            @Html.ActionLink("Login", "Login", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Logout", "Logout", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
+                        }
+                    }
                 </div>
             </div>
         </div>

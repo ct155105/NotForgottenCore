@@ -1,0 +1,129 @@
+﻿@model List<NotForgottenCore.Models.Race>
+
+<div class="d-none d-md-block">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="1">1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="2">2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="3">3</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="4">4</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="5">5</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="6">6</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="7">7</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="8">8</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="9">9</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="update(this)" id="10">10</a>
+        </li>
+    </ul>
+</div>
+
+<select id="raceSelect" class="custom-select d-md-none" onchange="update(this);">
+    <option value="1">Race 1</option>
+    <option value="2">Race 2</option>
+    <option value="3">Race 3</option>
+    <option value="4">Race 4</option>
+    <option value="5">Race 5</option>
+    <option value="6">Race 6</option>
+    <option value="7">Race 7</option>
+    <option value="8">Race 8</option>
+    <option value="9">Race 9</option>
+    <option value="10">Race 10</option>
+</select>
+@*onchange = "getchange(this);*@
+<div class="container-fluid programBody p-md-5 pt-1" style="min-width:248px">
+    <div class="container-fluid">
+        <div class="row bg-dark programHeader">
+            APPROX. POST &nbsp;<span id="startTime">6:00PM</span>  &nbsp;&nbsp;
+            <span class="d-none d-md-inline"> WIN ($2.00 MIN) PLACE ($2.00 MIN) SHOW ($2.00 MIN)</span>
+        </div>
+        <div class="row">
+            <div class="col-2 text-center">
+                <div class="d-block">
+                    <h1 class="d-inline" id="raceNo">1</h1>&nbsp;
+                </div>
+                <div class="d-block">Race</div>
+            </div>
+            <div class="mt-2 float-left">
+                <img src="~/images/Distance.GIF" />
+            </div>
+            <div class="d-none d-md-inline mt-3 col-6">
+                <h4 class="text-right">American Legion Post 530</h4>
+            </div>
+        </div>
+        <hr style="border-color:#323b46">
+        <div class="dl-horizontal text-dark">
+            <div id="raceData">
+                <partial name="_LanesPartial" model="Model" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        var raceId;
+        function update(sel) {
+            var raceId = sel.id;
+            debugger
+            if (raceId == 'raceSelect') {
+                raceId = sel.value
+            }
+            $.get("@Url.Action("_LanesPartial", "Races")?id=" + raceId, function (res2) {
+                    $('#raceData').html(res2);
+            });
+            $('#raceNo').html(raceId);
+            var startTime = "";
+            if (raceId == 1) {
+                startTime = "6:00PM";
+            }
+            if (raceId == 2) {
+                startTime = "6:15PM";
+            }
+            if (raceId == 3) {
+                startTime = "6:30PM";
+            }
+            if (raceId == 4) {
+                startTime = "6:45PM";
+            }
+            if (raceId == 5) {
+                startTime = "7:00PM";
+            }
+            if (raceId == 6) {
+                startTime = "7:15PM";
+            }
+            if (raceId == 7) {
+                startTime = "7:30PM";
+            }
+            if (raceId == 8) {
+                startTime = "7:45PM";
+            }
+            if (raceId == 9) {
+                startTime = "8:00PM";
+            }
+            if (raceId == 10) {
+                startTime = "8:15PM";
+            }
+            $('#startTime').html(startTime);
+        };
+
+    </script>
+}

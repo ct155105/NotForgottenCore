@@ -49,8 +49,11 @@ namespace NotForgottenCore.Controllers
 
         // GET: Horses/Create
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(int raceId, int laneId)
         {
+            ViewData["raceId"] = raceId;
+            ViewData["laneId"] = laneId;
+            ViewData["year"] = DateTime.Now.Year;
             return View();
         }
 
@@ -60,16 +63,37 @@ namespace NotForgottenCore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Name,Trainer,ApplicationUserId,Id")] Horse horse)
+        public async Task<IActionResult> Create([Bind("Name,Trainer")] Horse horse, int raceId, int laneId, int year )
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
+            Race race = await _context.Races.FindAsync(raceId, laneId, year);
+
             if (ModelState.IsValid)
             {
-                horse.Id = Guid.NewGuid();
+                Guid id = Guid.NewGuid();
+                horse.Id = id;
                 horse.ApplicationUserId = user.Id;
                 _context.Add(horse);
+                try
+                {
+                    race.HorseId = id;
+                    _context.Update(race);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!HorseExists(horse.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(horse);

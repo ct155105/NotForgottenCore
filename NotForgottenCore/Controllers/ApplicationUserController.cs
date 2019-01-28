@@ -36,12 +36,12 @@ namespace NotForgottenCore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                model.UserName = model.Email;
+                var result = await _userManager.CreateAsync(model, model.Password);
 
                 if (result.Succeeded)
                 {
-                    await _signManager.SignInAsync(user, false);
+                    await _signManager.SignInAsync(model, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -64,8 +64,8 @@ namespace NotForgottenCore.Controllers
         [HttpPost("/Login")]
         public async Task<IActionResult> Login(ApplicationUser model)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 var result = await _signManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
 
                 if (result.Succeeded)
@@ -73,8 +73,8 @@ namespace NotForgottenCore.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 return View();
-            }
-            return View();
+            //}
+            //return View();
         }
 
         [HttpGet("/Logout")]
