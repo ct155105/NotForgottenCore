@@ -49,9 +49,15 @@ namespace NotForgottenCore.Controllers
         }
 
         // GET: Horses/Create
-        [Authorize]
-        public IActionResult Create(int raceId, int laneId)
+        //[Authorize]
+        public async Task<IActionResult> Create(int raceId, int laneId)
         {
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return RedirectToAction("login","ApplicationUser");                
+            }
+
             ViewData["raceId"] = raceId;
             ViewData["laneId"] = laneId;
             ViewData["year"] = DateTime.Now.Year;
@@ -64,7 +70,7 @@ namespace NotForgottenCore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Name,Trainer")] Horse horse, int raceId, int laneId, int year )
+        public async Task<IActionResult> Create([Bind("Name,Trainer")] Horse horse, int raceId, int laneId, int year)
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -94,7 +100,7 @@ namespace NotForgottenCore.Controllers
                     }
                 }
                 await _context.SaveChangesAsync();
-                 
+
                 return RedirectToAction("Race", "Races");
             }
             return View(horse);

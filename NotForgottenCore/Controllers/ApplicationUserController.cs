@@ -34,9 +34,11 @@ namespace NotForgottenCore.Controllers
         [HttpPost("/Register")]
         public async Task<IActionResult> Register(ApplicationUser model)
         {
+
+            model.UserName = model.Email;
+
             if (ModelState.IsValid)
             {
-                model.UserName = model.Email;
                 var result = await _userManager.CreateAsync(model, model.Password);
 
                 if (result.Succeeded)
