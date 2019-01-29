@@ -7,7 +7,7 @@ using NotForgottenCore.Data;
 
 namespace NotForgottenCore.Controllers
 {
-    [Route("/")]
+    
     public class HomeController : Controller
     {
         private ApplicationDataContext _dataContext;
@@ -17,8 +17,23 @@ namespace NotForgottenCore.Controllers
             _dataContext = dataContext;
         }
 
+        [Route("/")]
         [HttpGet]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Route("/About")]
+        [HttpGet]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        [Route("/Contact")]
+        [HttpGet]
+        public IActionResult Contact()
         {
             return View();
         }

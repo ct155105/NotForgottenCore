@@ -38,6 +38,7 @@ namespace NotForgottenCore.Controllers
             }
 
             var horse = await _context.Horses
+                .Include(r => r.Owner)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (horse == null)
             {
@@ -93,8 +94,8 @@ namespace NotForgottenCore.Controllers
                     }
                 }
                 await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                 
+                return RedirectToAction("Race", "Races");
             }
             return View(horse);
         }

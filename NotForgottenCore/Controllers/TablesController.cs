@@ -112,24 +112,5 @@ namespace NotForgottenCore.Controllers
             return PartialView(group);
         }
 
-            //[HttpGet("/_GroupMemberPartial")]
-            //public async Task<IActionResult> _GroupMemberPartial(Group group)
-            //{
-            //    return PartialView();
-            //    ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
-
-            //    if (ModelState.IsValid)
-            //    {
-            //        return PartialView();
-            //        /*
-            //        [HttpPost]
-            //        public async Task<IActionResult> _TablePartial(string tableId, string group, string seats)
-            //        {
-            //            Table.ReserveTable(tableId, group, seats);
-            //            return RedirectToAction("TableApp");
-            //        }
-            //        */
-            //    }
-            //}
-        }
+    }
 }

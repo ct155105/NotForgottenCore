@@ -1,34 +1,43 @@
 ﻿@model NotForgottenCore.Models.Race
 
-    <div class="col-2">
-        <h4>@Model.LaneId</h4>
-    </div>
-    <div class="col-10">
-        @{
-            if (Model.Horse == null)
-            {
-                <a asp-controller="Horse"
-                   asp-action="Create"
-                   asp-route-laneId=@Model.LaneId
-                   asp-route-raceId=@Model.Id>
-                    Reserve!
-                </a>
-            }
-            else
-            {
-                <div class="row">
-                    <div class="col">
-                        <h5><strong>@Model.Horse.Name</strong></h5>
-                        <span>@Model.Horse.Trainer</span>
-                        
-                    </div>
-                    <div class="col">
-                        <span>@Model.Horse.Owner.FirstName</span>
-                        <span>@Model.Horse.Owner.LastName</span>
-                        <span>@Model.Horse.Owner.Zip</span>
-                    </div>
-                </div>
-            }
+<div class="col-2">
+    <h4>@Model.LaneId</h4>
+</div>
+<div class="col-10">
+    @{
+        if (Model.Horse == null)
+        {
+            <a asp-controller="Horse"
+               asp-action="Create"
+               asp-route-laneId=@Model.LaneId
+               asp-route-raceId=@Model.Id>
+                Reserve!
+            </a>
         }
+        else
+        {
+            <div class="row">
+                <div class="col">
+                    <h5 class="d-none d-sm-block"><strong>@Model.Horse.Name</strong></h5>
+                    <h5 class="d-sm-none">
+                        <strong>
+                            <a class="text-dark"
+                               asp-controller="Horse"
+                               asp-action="Details"
+                               asp-route-id="@Model.Horse.Id"
+                               target="_blank">@Model.Horse.Name</a>
+                        </strong>
+                    </h5>
+                    <span class="d-none d-sm-inline">@Model.Horse.Trainer</span>
 
-    </div>
+                </div>
+                <div class="col d-none d-sm-inline">
+                    <span>@Model.Horse.Owner.FirstName</span>
+                    <span>@Model.Horse.Owner.LastName</span>
+                    <span>@Model.Horse.Owner.Zip</span>
+                </div>
+            </div>
+        }
+    }
+
+</div>
