@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using NotForgottenCore.Models;
 
 namespace NotForgottenCore.Controllers
@@ -66,17 +68,33 @@ namespace NotForgottenCore.Controllers
         [HttpPost("/Login")]
         public async Task<IActionResult> Login(ApplicationUser model)
         {
-            //if (ModelState.IsValid)
-            //{
-                var result = await _signManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
 
-                if (result.Succeeded)
+            model.UserName = model.Email;
+
+            var result = await _signManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                //Check if user was trying to do an action prior to being redirected to login page
+                if (!string.IsNullOrEmpty(HttpContext.Session.GetString("redirect")))
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (!string.IsNullOrEmpty(HttpContext.Session.GetString("routeValues")))
+                    {
+                        var routeValues = JsonConvert.DeserializeObject<RouteValues>(HttpContext.Session.GetString("routeValues"));
+                        HttpContext.Session.SetString("routeValues", "");
+                        return RedirectToAction(HttpContext.Session.GetString("action")
+                        , HttpContext.Session.GetString("controller")
+                        , routeValues);
+                    }
+                    return RedirectToAction(HttpContext.Session.GetString("action")
+                    , HttpContext.Session.GetString("controller"));
                 }
-                return View();
-            //}
-            //return View();
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewData["LoginFail"] = "Login Failed. Please try again.";
+            return View();
         }
 
         [HttpGet("/Logout")]

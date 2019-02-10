@@ -41,6 +41,9 @@ namespace NotForgottenCore
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDataContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,15 +58,12 @@ namespace NotForgottenCore
 
             app.UseAuthentication();
 
+            app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
-
-            //app.Run((context) =>
-            //{
-            //    throw new Exception("Hmm...Something went wrong...");
-            //});
         }
     }
 }

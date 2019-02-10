@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NotForgottenCore.Data;
 using NotForgottenCore.Models;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace NotForgottenCore.Controllers
 {
@@ -52,15 +54,24 @@ namespace NotForgottenCore.Controllers
         //[Authorize]
         public async Task<IActionResult> Create(int raceId, int laneId)
         {
+
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
             if (user == null)
             {
+                //Store horse info in session for redirect after login
+                HttpContext.Session.SetString("redirect", "true");
+                HttpContext.Session.SetString("controller", "Horse");
+                HttpContext.Session.SetString("action", "Create");
+                RouteValues obj_routeValues = new RouteValues { RaceId = raceId, LaneId = laneId};
+                var routeValues = JsonConvert.SerializeObject(obj_routeValues);
+                HttpContext.Session.SetString("routeValues", routeValues);
                 return RedirectToAction("login","ApplicationUser");                
             }
 
             ViewData["raceId"] = raceId;
             ViewData["laneId"] = laneId;
             ViewData["year"] = DateTime.Now.Year;
+
             return View();
         }
 

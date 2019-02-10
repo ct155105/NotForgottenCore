@@ -1,14 +1,15 @@
 ﻿@model NotForgottenCore.Models.Table
+@using Microsoft.AspNetCore.Http;
 @{
     string tableNo = Model.Id.ToString();
-    int i = Model.OpenSeats;
-    List<SelectListItem> seatList = new List<SelectListItem> { };
-    seatList.Add(new SelectListItem() { Text = "0", Value = "0" });
-    while (i > 0)
-    {
-        seatList.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
-        i--;
-    }
+ int i = Model.OpenSeats;
+ List<SelectListItem> seatList = new List<SelectListItem> { };
+ seatList.Add(new SelectListItem() { Text = "0", Value = "0" });
+ while (i > 0)
+ {
+     seatList.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+     i--;
+ }
 }
 
 <h2 class="text-center">
@@ -17,9 +18,12 @@
 <div>
     <hr />
 
-    @if (ViewData["LoggedIn"].ToString() != "true")
+    @if (!User.Identity.IsAuthenticated)
     {
-        <H1>You must login to reserve a table</H1>
+        <H1>
+            You must <a asp-controller="ApplicationUser"
+                        asp-action="Login">login</a> to reserve a table
+        </H1>
     }
     else
     {
@@ -33,7 +37,7 @@
 
     @if (Model.Groups != null && Model.Groups.Count > 0)
     {
-        <hr/>
+        <hr />
         <h4 class="text-center">Reservation List</h4>
         <div class="row">
             @foreach (var group in Model.Groups)

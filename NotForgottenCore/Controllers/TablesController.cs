@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,14 +36,9 @@ namespace NotForgottenCore.Controllers
                 return NotFound();
             }
 
-            ViewData["LoggedIn"] = "false";
-
-            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
-
-            if (user != null)
-            {
-                ViewData["LoggedIn"] = "true";
-            }
+            HttpContext.Session.SetString("redirect", "true");
+            HttpContext.Session.SetString("action", "TableApp");
+            HttpContext.Session.SetString("controller", "Tables");
 
             Table table = await _context.Tables
                 .Include(t => t.Groups)
