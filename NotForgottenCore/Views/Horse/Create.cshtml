@@ -8,7 +8,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="CreateForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -24,13 +24,46 @@
             <input type="number" class="d-none" name="laneId" value=@ViewData["laneId"]>
             <input type="number" class="d-none" name="year" value=@ViewData["year"]>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="payCard" checked>
+                    <label class="custom-control-label" for="payCard">Pay with Card</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="payCash" checked>
+                    <label class="custom-control-label" for="payCash">Pay Check/Cash</label>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
+<partial name="_PaymentPartial" />
+
+@*<script>
+    function submitCard(token) {
+        return $.ajax({
+            type: "POST",
+            url: @this.Url.Action("Pay", "Payment"),
+            data: token,
+        });
+    }); 
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    // Handle form submission.
+    var form = document.getElementById('CreateForm')
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function (result) {
+            if (result.error) {
+                // Inform the user if there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server.
+                submitCard(result.token.id);
+            }
+        });
+    });
+
+</script>*@

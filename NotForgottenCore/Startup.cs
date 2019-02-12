@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotForgottenCore.Data;
 using NotForgottenCore.Models;
+using Stripe;
 
 namespace NotForgottenCore
 {
@@ -35,7 +36,10 @@ namespace NotForgottenCore
         {
             services.AddMvc();
 
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
             var connection = Configuration.GetConnectionString("CTLocal");
+            var stripeApiKey = Configuration.GetSection("stripeApiKeys").GetValue<string>("TestSecret");
             services.AddDbContext<ApplicationDataContext>(options => options.UseSqlServer(connection));
 
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
@@ -44,6 +48,8 @@ namespace NotForgottenCore
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            StripeConfiguration.SetApiKey(stripeApiKey);//"sk_test_G3M4l1KyjkdIpArEORB6OHjU");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

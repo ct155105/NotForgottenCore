@@ -84,7 +84,6 @@ namespace NotForgottenCore.Controllers
         public async Task<IActionResult> Create([Bind("Name,Trainer")] Horse horse, int raceId, int laneId, int year)
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
-
             Race race = await _context.Races.FindAsync(raceId, laneId, year);
 
             if (ModelState.IsValid)
