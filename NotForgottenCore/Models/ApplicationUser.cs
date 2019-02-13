@@ -28,6 +28,7 @@ namespace NotForgottenCore.Models
         [CompareAttribute("Password", ErrorMessage = "Password doesn't match.")]
         public string ConfirmPassword { get; set; }
 
+        public int Balance { get; set; }
         public ICollection<Horse> Horses { get; set; }
         public ICollection<Group> Groups { get; set; }
     }

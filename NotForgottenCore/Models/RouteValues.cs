@@ -10,4 +10,8 @@ namespace NotForgottenCore.Models
         public int LaneId { get; set; }
         public int RaceId { get; set; }
     }
+    public class RouteValuesAmount
+    {
+        public int Amount { get; set; }
+    }
 }

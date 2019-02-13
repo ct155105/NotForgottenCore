@@ -7,6 +7,7 @@ namespace NotForgottenCore.Data
 {
     public class stripeTokenPlaceholder
     {
-        public string stripeToken { get; set; }
+        public string StripeToken { get; set; }
+        public int Amount { get; set; }
     }
 }

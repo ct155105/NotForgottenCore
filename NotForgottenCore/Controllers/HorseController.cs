@@ -59,6 +59,8 @@ namespace NotForgottenCore.Controllers
             if (user == null)
             {
                 //Store horse info in session for redirect after login
+
+                //****CT***** Need to convert this to Router class object
                 HttpContext.Session.SetString("redirect", "true");
                 HttpContext.Session.SetString("controller", "Horse");
                 HttpContext.Session.SetString("action", "Create");

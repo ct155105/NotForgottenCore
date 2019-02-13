@@ -1,14 +1,18 @@
 ﻿@model NotForgottenCore.Models.Horse
+@using NotForgottenCore.Models
 
 @{
+    //*****CT**** Should add router object to other models so we don't need to create in each view
     ViewData["Title"] = "Create";
+    Router router = new Router { Action = "Create", Controller = "Horse" };
+    router.RouteValue.Add("Amount", "1000");
 }
 
 <h4>Horse</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" id="CreateForm">
+        <form asp-action="Create" id="MainForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -23,47 +27,15 @@
             <input type="number" class="d-none" name="raceId" value=@ViewData["raceId"]>
             <input type="number" class="d-none" name="laneId" value=@ViewData["laneId"]>
             <input type="number" class="d-none" name="year" value=@ViewData["year"]>
+            <input type="number" class="d-none" id="amount" value="1000">
             <div class="form-group">
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="payCard" checked>
-                    <label class="custom-control-label" for="payCard">Pay with Card</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="payCash" checked>
-                    <label class="custom-control-label" for="payCash">Pay Check/Cash</label>
-                </div>
+                <partial name="_PaymentPartial"/>
                 <input type="submit" value="Submit" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
-<partial name="_PaymentPartial" />
-
-@*<script>
-    function submitCard(token) {
-        return $.ajax({
-            type: "POST",
-            url: @this.Url.Action("Pay", "Payment"),
-            data: token,
-        });
-    }); 
-
-
-    // Handle form submission.
-    var form = document.getElementById('CreateForm')
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        stripe.createToken(card).then(function (result) {
-            if (result.error) {
-                // Inform the user if there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                submitCard(result.token.id);
-            }
-        });
-    });
-
-</script>*@
+@section scripts{
+    <partial name="_PaymentPartialScript" 
+                         model=router />
+}

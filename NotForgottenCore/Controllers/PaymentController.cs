@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using NotForgottenCore.Data;
 using NotForgottenCore.Models;
 
@@ -13,21 +14,39 @@ namespace NotForgottenCore.Controllers
     public class PaymentController : Controller
     {
 
-        private SignInManager<ApplicationUser> _signManager;
         private UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDataContext _context;
 
-        public PaymentController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signManager)
+        public PaymentController(UserManager<ApplicationUser> userManager, ApplicationDataContext context)
         {
             _userManager = userManager;
-            _signManager = signManager;
+            _context = context;
         }
 
         public IActionResult Pay([FromBody] stripeTokenPlaceholder stripeTokenP)
         {
-            StripeCC stripe = new StripeCC(2500, stripeTokenP.stripeToken);
+            StripeCC stripe = new StripeCC(stripeTokenP.Amount, stripeTokenP.StripeToken);
 
-            return StatusCode(202);
-            //return RedirectToAction("Race", "Races");
+            var data = new { };
+
+            return Ok(data);
+        }
+
+        public async Task<IActionResult> PayCash([FromBody] RouteValuesAmount amount)
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            //***CT***** Can convert to JSON -> Dictionary to avoid strongly type class
+            //var json = JsonConvert.SerializeObject(amount);
+            //var dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            //int balance = Convert.ToInt32(dictionary.GetValueOrDefault("Amount"));
+            //user.Balance += balance;
+
+            user.Balance += amount.Amount;
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(user);
         }
     }
 }

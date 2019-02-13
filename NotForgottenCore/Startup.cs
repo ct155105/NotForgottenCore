@@ -36,6 +36,7 @@ namespace NotForgottenCore
         {
             services.AddMvc();
 
+            //****CT Comment**** Do we still need this???
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             var connection = Configuration.GetConnectionString("CTLocal");
