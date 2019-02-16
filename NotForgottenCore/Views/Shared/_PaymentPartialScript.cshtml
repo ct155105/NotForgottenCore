@@ -4,27 +4,21 @@
 @{
     //Change key value pair to JSON
     var json = Html.Raw(JsonConvert.SerializeObject(Model.RouteValue));
+    var amount = Model.RouteValue["Amount"];
 }
 
-<script>
+@* Must Load Stripe.Js at top of Main View (Cannot load from partial view). Inlude this in top of main view:
+        @section scriptsTop{
+        <script src="https://js.stripe.com/v3/"></script>
+    }*@
 
-    $('input[type=radio][name=radio]').change(function () {
-        if (this.id == 'payCash') {
-            if (this.checked == true) {
-                $('#card-element').addClass('d-none');
-            }
-        }
-        else {
-            $('#card-element').removeClass('d-none');
-        }
-    });
+<script>
     // Create a Stripe client.
     // ****CT**** Need to parameterize this
     var stripe = Stripe('pk_test_N2HYRBeaiImpxPRGc3rc44ly');
-
+    var counter = 0;
     // Create an instance of Elements.
     var elements = stripe.elements();
-
     var style = {
         base: {
             color: '#32325d',
@@ -42,23 +36,41 @@
             iconColor: '#fa755a'
         }
     };
-
     // Create an instance of the card Element.
     var card = elements.create('card', { style: style });
 
-    // Add an instance of the card Element into the `card-element` <div>
-    card.mount('#card-element');
-
-    // Handle real-time validation errors from the card Element.
-    card.addEventListener('change', function (event) {
-        var displayError = document.getElementById('card-errors');
-        if (event.error) {
-            displayError.textContent = event.error.message;
-        } else {
-            displayError.textContent = '';
+    $('input[type=radio][name=radio]').change(function () {
+        if (counter == 0) {
+            stripefunction();
+            counter++;
         }
-    });
 
+        if (this.id == 'payCash') {
+            if (this.checked == true) {
+                $('#card-element').addClass('d-none');
+            }
+            }
+            else {
+                $('#card-element').removeClass('d-none');
+            }
+        });
+
+    function stripefunction() {
+
+        // Add an instance of the card Element into the `card-element` <div>
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element.
+        card.addEventListener('change', function (event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+    };
     //******CT TEST*******
 
     function submitForm() {
@@ -70,7 +82,8 @@
     };
 
     function submitCard(token) {
-        var myData = JSON.stringify({ "StripeToken": token, "Amount": $('#amount').val() });
+        //var myData = JSON.stringify({ "StripeToken": token, "Amount": $('#amount').val() });
+        var myData = JSON.stringify({ "StripeToken": token, "Amount": @amount });
         $.ajax({
             url: '@this.Url.Action("Pay", "Payment")',
             type: "POST",
@@ -78,7 +91,7 @@
             dataType: "json",
             data: myData,
             success: function () {
-                alert('Success');
+                //alert('Success');
                 $("#MainForm").submit();
             }
         });
@@ -93,13 +106,13 @@
             dataType: "json",
             data: myData,
             success: function () {
-                alert('Success DB updated');
+                //alert('Success DB updated');
                 $("#MainForm").submit();
-            },
-            complete: function () {
-                alert('complete');
-                $("#MainForm").submit();
-            }
+            }//,
+            //complete: function () {
+            //    alert('complete');
+            //    $("#MainForm").submit();
+            //}
         });
     }
 
@@ -107,6 +120,7 @@
     var form = document.getElementById('MainForm')
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+        debugger;
         if ($('#payCash').is(':checked')) {
             payCash();
             //$("#MainForm").submit();
@@ -126,6 +140,7 @@
         }
     });
 
+    //Original Stripe.js Function
     // Handle form submission.
     //var form = document.getElementById('payment-form');
     //form.addEventListener('submit', function (event) {

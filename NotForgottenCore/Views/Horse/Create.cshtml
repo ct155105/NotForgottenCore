@@ -8,6 +8,10 @@
     router.RouteValue.Add("Amount", "1000");
 }
 
+@section scriptsTop{
+    <script src="https://js.stripe.com/v3/"></script>
+}
+
 <h4>Horse</h4>
 <hr />
 <div class="row">
@@ -27,15 +31,14 @@
             <input type="number" class="d-none" name="raceId" value=@ViewData["raceId"]>
             <input type="number" class="d-none" name="laneId" value=@ViewData["laneId"]>
             <input type="number" class="d-none" name="year" value=@ViewData["year"]>
-            <input type="number" class="d-none" id="amount" value="1000">
             <div class="form-group">
-                <partial name="_PaymentPartial"/>
+                <partial name="_PaymentPartial" />
                 <input type="submit" value="Submit" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 @section scripts{
-    <partial name="_PaymentPartialScript" 
-                         model=router />
+    <partial name="_PaymentPartialScript"
+             model=router />
 }

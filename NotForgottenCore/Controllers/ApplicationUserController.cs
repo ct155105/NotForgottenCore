@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using NotForgottenCore.Data;
 using NotForgottenCore.Models;
 
 namespace NotForgottenCore.Controllers
@@ -14,17 +16,22 @@ namespace NotForgottenCore.Controllers
     {
         private SignInManager<ApplicationUser> _signManager;
         private UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDataContext _context;
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signManager)
+        public ApplicationUserController(ApplicationDataContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signManager)
         {
             _userManager = userManager;
             _signManager = signManager;
+            _context = context;
         }
 
-
-        public IActionResult Index()
+        // GET: UserInfo
+        [Route("/userinfo")]
+        public async Task<IActionResult> UserInfo()
         {
-            return View();
+            return View(await _context.Users
+                .OrderByDescending(x => x.Balance)
+                .ToListAsync());
         }
 
         [HttpGet("/Register")]
@@ -46,6 +53,23 @@ namespace NotForgottenCore.Controllers
                 if (result.Succeeded)
                 {
                     await _signManager.SignInAsync(model, false);
+
+
+                    //Check if user was trying to do an action prior to being redirected to login page
+                    if (!string.IsNullOrEmpty(HttpContext.Session.GetString("redirect")))
+                    {
+                        if (!string.IsNullOrEmpty(HttpContext.Session.GetString("routeValues")))
+                        {
+                            var routeValues = JsonConvert.DeserializeObject<RouteValues>(HttpContext.Session.GetString("routeValues"));
+                            HttpContext.Session.SetString("routeValues", "");
+                            return RedirectToAction(HttpContext.Session.GetString("action")
+                            , HttpContext.Session.GetString("controller")
+                            , routeValues);
+                        }
+                        return RedirectToAction(HttpContext.Session.GetString("action")
+                        , HttpContext.Session.GetString("controller"));
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
