@@ -50,7 +50,7 @@ namespace NotForgottenCore
             services.AddDistributedMemoryCache();
             services.AddSession();
 
-            StripeConfiguration.SetApiKey(stripeApiKey);//"sk_test_G3M4l1KyjkdIpArEORB6OHjU");
+            StripeConfiguration.SetApiKey(stripeApiKey);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

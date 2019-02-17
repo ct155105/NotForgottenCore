@@ -21,7 +21,8 @@
             <input asp-for="Id" type="hidden" />
             <partial name="_GroupMemberPartial" for="Members" />
             <div class="form-group">
-                <partial name="_PaymentPartial" />
+                <partial name="_PaymentPartial"
+                         model=router />
                 <input type="submit" value="Reserve" class="btn btn-block btn-success mt-2" />
             </div>
         </form>
