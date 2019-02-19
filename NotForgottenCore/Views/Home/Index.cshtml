@@ -2,26 +2,50 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Night at the Races 2018!</h1>
-    <p class="lead">
-        Please join us for Not Forgotten's Annual Night at the Races! We are back for our eighth year, with a night of fun, friends, food, drinks, and games all centered around curing cancer and honoring those who have been affected by a form of this terrible disease.
-        **Please note that the Night at the Races is moving venues this year to accommodate an even bigger and better event! See you there!
+<div class="jumbotron text-center">
+    <div class="display-4 d-none d-md-block">Night at the Races 2019</div>
+    <h2 class="d-md-none">Night at the Races 2019</h2>
+    <p class="lead pt-md-3">
+        AN EVENING OF FUN AND EXCITEMENT TO BENEFIT CANCER RESEARCH
     </p>
     <p>
-        @Html.ActionLink("Learn more »", "NATR2018", "Home", null, new { @class = "btn btn-primary btn-lg" }) 
+        @Html.ActionLink("Why »", "NATR2019", "Home", null, new { @class = "btn btn-primary btn-lg" })
     </p>
+    <hr class="my-4">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 pt-3 pt-md-0">
+                <h4>April 27, 2019</h4>
+                <h6>Doors Open 7:30pm</h6>
+            </div>
+            <div class="col-md-3 col-sm-6 pt-3 pt-md-0">
+                <strong>St. Bart’s Gymnasium</strong><br />
+                9375 Winton Road<br />
+                Cincinnati, Ohio 45231
+            </div>
+            <div class="col-md-6 pt-3 pt-md-0">
+                <strong>$25.00 Donation gets you….</strong>
+                <br />Domestic beer
+                <br />Appetizers &amp; Snacks
+                <br />Door Prizes
+                <br />Soft Drinks
+                <br />Event Admission
+                <br />($20 pre-sale, $25 day of the event)
+            </div>
+        </div>
+    </div>
+    <h4 class="text-danger pt-4"><strong>Must be 21 to attend</strong></h4>
 </div>
 
 <div class="row justify-content-center">
-    <img src="~/images/Jockey.jpg" />
+    <img src="~/images/Jockey.jpg" class="img-fluid" />
 </div>
 
 <div class="row">
     <div class="col-md-4 col-sm-6">
         <h2>Sponsor a Horse $10.00</h2>
         <p>
-            Name your horse!<br/>
+            Name your horse!<br />
             If your horse wins its race, you are entered into final race 11.  Win race 11, you win $200.00
         </p>
         <p>
@@ -33,8 +57,8 @@
         <p>Reserve seats for your entire party!</p>
         <p>@Html.ActionLink("Reserve Table »", "TableApp", "Tables", null, new { @class = "btn btn-default" })</p>
         @*<h2>Games!</h2>
-        <p>Games include wine ring toss, duck pond, scratch off, and Split the Pot!</p>
-        <p>@Html.ActionLink("See All Games »", "Game", "Home", null, new { @class = "btn btn-default" })</p>*@
+            <p>Games include wine ring toss, duck pond, scratch off, and Split the Pot!</p>
+            <p>@Html.ActionLink("See All Games »", "Game", "Home", null, new { @class = "btn btn-default" })</p>*@
     </div>
     <div class="col-md-4 col-sm-6">
         <h2>Prize Baskets</h2>

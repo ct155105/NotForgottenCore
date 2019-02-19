@@ -37,5 +37,11 @@ namespace NotForgottenCore.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult NATR2019()
+        {
+            return View();
+        }
     }
 }

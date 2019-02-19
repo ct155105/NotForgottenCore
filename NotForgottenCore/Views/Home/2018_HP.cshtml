@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Night at the Races 2018!</h1>
+    <p class="lead">
+        Please join us for Not Forgotten's Annual Night at the Races! We are back for our eighth year, with a night of fun, friends, food, drinks, and games all centered around curing cancer and honoring those who have been affected by a form of this terrible disease.
+        **Please note that the Night at the Races is moving venues this year to accommodate an even bigger and better event! See you there!
+    </p>
+    <p>
+        @Html.ActionLink("Learn more »", "NATR2018", "Home", null, new { @class = "btn btn-primary btn-lg" }) 
+    </p>
+</div>
+
+<div class="row justify-content-center">
+    <img src="~/images/Jockey.jpg" />
+</div>
+
+<div class="row">
+    <div class="col-md-4 col-sm-6">
+        <h2>Sponsor a Horse $10.00</h2>
+        <p>
+            Name your horse!<br/>
+            If your horse wins its race, you are entered into final race 11.  Win race 11, you win $200.00
+        </p>
+        <p>
+            @Html.ActionLink("Sponser Horse »", "Race", "Races", null, new { @class = "btn btn-default" })
+        </p>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <h2>Reserve your Table</h2>
+        <p>Reserve seats for your entire party!</p>
+        <p>@Html.ActionLink("Reserve Table »", "TableApp", "Tables", null, new { @class = "btn btn-default" })</p>
+        @*<h2>Games!</h2>
+        <p>Games include wine ring toss, duck pond, scratch off, and Split the Pot!</p>
+        <p>@Html.ActionLink("See All Games »", "Game", "Home", null, new { @class = "btn btn-default" })</p>*@
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <h2>Prize Baskets</h2>
+        <p>Use your winnings from the horse race to purchase raffel tickets for our wonderful prize baskets!</p>
+        @*<p>@Html.ActionLink("See Past Years' Prize Baskets »", "Prizes", "Home", null, new { @class = "btn btn-default" })</p>*@
+        <p><a href="https://www.facebook.com/Not-Forgotten-Foundation-201379079892455/" class="btn btn-default" target="_blank">See Past Years' Prize Baskets »</a></p>
+    </div>
+</div>
