@@ -23,6 +23,7 @@ namespace NotForgottenCore.Models
               on Tables.Id = B.TableId
               GO
         */
+        public string TableType { get; set; }
         public List<Group> Groups { get; set; }
     }
 }

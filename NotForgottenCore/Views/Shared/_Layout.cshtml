@@ -25,13 +25,13 @@
             <div class="collapse navbar-collapse" id="navContent">
                 <div class="navbar-nav ml-auto">
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-item nav-link ml-auto" })
-                    @Html.ActionLink("Tables", "TableApp", "Tables", null, new { @class = "nav-item nav-link ml-auto" })
-                    @Html.ActionLink("Races", "Index", "Races", null, new { @class = "nav-item nav-link ml-auto" })
+                    @Html.ActionLink("Tickets", "TableApp", "Tables", null, new { @class = "nav-item nav-link ml-auto" })
+                    @Html.ActionLink("Horses", "Index", "Races", null, new { @class = "nav-item nav-link ml-auto" })
                     @{ if (!User.Identity.IsAuthenticated)
                         {
 
                             @Html.ActionLink("Register", "Register", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
-                            @Html.ActionLink("Login", "Login", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
+                            @*@Html.ActionLink("Login", "Login", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })*@
                         }
                         else
                         {

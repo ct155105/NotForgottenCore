@@ -52,6 +52,9 @@
     <Content Update="Views\Home\2018_HP.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Tables\TableApp - Original.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Tables\_GroupDisplayPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

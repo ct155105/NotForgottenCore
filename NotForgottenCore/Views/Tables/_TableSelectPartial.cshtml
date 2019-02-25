@@ -1,0 +1,23 @@
+﻿@model NotForgottenCore.Models.Table
+
+@{
+    string openSeats = Model.OpenSeats.ToString();
+
+    //Test Purposes
+    if(Model.TableType == "short")
+    {
+        openSeats = "12";
+    }
+    else if(Model.TableType == "round")
+    {
+        openSeats = "8";
+    }
+    else
+    {
+        openSeats = "36";
+    }
+
+    string source = "images/tables/" + Model.TableType + "_" + openSeats + ".svg";
+}
+
+<img class="img-fluid" src="@source" />
