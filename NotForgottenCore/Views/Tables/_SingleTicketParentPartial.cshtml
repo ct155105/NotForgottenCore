@@ -1,0 +1,25 @@
+﻿@model NotForgottenCore.Models.SingleTicketsCollection
+@using NotForgottenCore.Models;
+
+
+@{
+    var amount = Model.SingleTickets.Count * 2000;
+    Router router = new Router { Action = "_SingleTicketCreate", Controller = "Tables" };
+    router.RouteValue.Add("Amount", amount.ToString());
+}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="_SingleTicketCreate" id="MainForm">
+            <div class="form-group">
+                <partial name="_SingleTicketPartial"
+                         for="SingleTickets" />
+                <div id="Payment"></div>
+                <partial name="_PaymentPartial"
+                         model=router />
+                <input type="submit" value="Reserve" class="btn btn-block btn-success mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+<partial name="_PaymentPartialScript"
+         model=router />

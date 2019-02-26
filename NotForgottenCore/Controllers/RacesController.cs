@@ -21,13 +21,16 @@ namespace NotForgottenCore.Controllers
 
         // GET: Races
         [Route("Races")]
-        public IActionResult Race()
+        public IActionResult Race(int? raceNbr)
         {
-            int id = 1;
+            if (raceNbr == null)
+            {
+                raceNbr = 1;
+            }
             List<Race> races = (from c in _context.Races
                                 .Include(r => r.Horse)
                                     .ThenInclude(horse => horse.Owner)
-                                where c.Id == id
+                                where c.Id == raceNbr
                                 select c
                                 ).ToList();
 

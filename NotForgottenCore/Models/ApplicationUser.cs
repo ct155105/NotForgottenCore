@@ -31,5 +31,6 @@ namespace NotForgottenCore.Models
         public int Balance { get; set; }
         public ICollection<Horse> Horses { get; set; }
         public ICollection<Group> Groups { get; set; }
+        public ICollection<SingleTickets> SingleTickets { get; set; }
     }
 }

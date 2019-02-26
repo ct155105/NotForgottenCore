@@ -14,6 +14,16 @@
     <Compile Remove="Migrations\20181129165134_Initial.Designer.cs" />
     <Compile Remove="Migrations\20181129181456_AddHorseToRace.cs" />
     <Compile Remove="Migrations\20181129181456_AddHorseToRace.Designer.cs" />
+    <Compile Remove="Migrations\20190226160856_SingleTicketTable.cs" />
+    <Compile Remove="Migrations\20190226160856_SingleTicketTable.Designer.cs" />
+    <Compile Remove="Migrations\20190226161032_SingleTicketTableAdded.cs" />
+    <Compile Remove="Migrations\20190226161032_SingleTicketTableAdded.Designer.cs" />
+    <Compile Remove="Migrations\20190226170303_Table.cs" />
+    <Compile Remove="Migrations\20190226170303_Table.Designer.cs" />
+    <Compile Remove="Migrations\20190226170538_FixedSingleTickets.cs" />
+    <Compile Remove="Migrations\20190226170538_FixedSingleTickets.Designer.cs" />
+    <Compile Remove="Migrations\20190226171033_SingleTicketsAdded.cs" />
+    <Compile Remove="Migrations\20190226171033_SingleTicketsAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,5 +12,28 @@ namespace NotForgottenCore.Models
         public Guid ApplicationUserId { get; set; }
         public int TableId { get; set; }
         public int NumberSeats { get; set; }
+
+        public int GetPrice()
+        {
+            int price = NumberSeats * 2000;
+            if (NumberSeats == 8)
+            {
+                price = 24000;
+            }
+            if (NumberSeats == 10)
+            {
+                price = 28000;
+            }
+            if (NumberSeats == 15)
+            {
+                price = 40000;
+            }
+            if (NumberSeats == 20)
+            {
+                price = 50000;
+            }
+            return price;
+        }
     }
+
 }

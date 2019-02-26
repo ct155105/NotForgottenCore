@@ -2,7 +2,8 @@
 @using NotForgottenCore.Models
 
 @{
-    int amount = Model.NumberSeats * 3500;
+    int amount = Model.GetPrice();
+
     Router router = new Router { Action = "_GroupCreate", Controller = "Tables" };
     router.RouteValue.Add("Amount", amount.ToString());
 }

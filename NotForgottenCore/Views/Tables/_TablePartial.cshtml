@@ -2,34 +2,46 @@
 @using Microsoft.AspNetCore.Http;
 @{
     string tableNo = Model.Id.ToString();
- int i = Model.OpenSeats;
- List<SelectListItem> seatList = new List<SelectListItem> { };
- seatList.Add(new SelectListItem() { Text = "0", Value = "0" });
- while (i > 0)
- {
-     seatList.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
-     i--;
- }
+    List<SelectListItem> seatList = Model.GetSelectLists();
+    @*int i = Model.OpenSeats;
+           if
+        List<SelectListItem> seatList = new List<SelectListItem> { };
+        seatList.Add(new SelectListItem() { Text = "0", Value = "0" });
+        while (i > 0)
+        {
+            seatList.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+            i--;
+        }*@
 }
 
-<h2 class="text-center">
+<h3 class="text-center">
     Table @tableNo
-</h2>
+</h3>
 <div>
     <hr />
 
     @if (!User.Identity.IsAuthenticated)
     {
-        <H1>
-            You must <a asp-controller="ApplicationUser"
-                        asp-action="Login">login</a> to reserve a table
-        </H1>
+        <H5 class="text-center">
+            Please <a asp-controller="ApplicationUser"
+                      asp-action="Login">login</a> to reserve a table
+        </H5>
     }
     else
     {
         <div class="text-center">
-            <h4>Select number of seats: </h4>
-            @Html.DropDownList("seats", new SelectList(seatList, "Value", "Text"), new { id = "ddList", onchange = "getchange(this);" })
+            @{
+                if (Model.OpenSeats > 7)
+                {
+                    <h4>Select number of seats: </h4>
+                    @Html.DropDownList("seats", new SelectList(seatList, "Value", "Text"), new { id = "ddList", onchange = "getchange(this);" })
+                }
+                else
+                {
+                    <h4>The table is full</h4>
+                }
+            }
+
         </div>
         <div id="seatData2">
         </div>

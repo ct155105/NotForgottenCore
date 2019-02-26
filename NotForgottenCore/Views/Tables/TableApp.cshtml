@@ -9,14 +9,15 @@
 @{
     List<Table> tables = Model.ToList();
     ViewBag.Title = "TableApp";
-    string table3 = "images/tables/Table" + tables[2].OpenSeats.ToString() + ".png";
-    string table4 = "images/tables/Table" + tables[3].OpenSeats.ToString() + ".png";
-    string table2 = "images/tables/Table" + tables[1].OpenSeats.ToString() + ".png";
-    string table1 = "images/tables/Table" + tables[0].OpenSeats.ToString() + ".png";
-    string table5 = "images/tables/Table" + tables[4].OpenSeats.ToString() + ".png";
-    string table6 = "images/tables/Table" + tables[5].OpenSeats.ToString() + ".png";
-    string table7 = "images/tables/Table" + tables[6].OpenSeats.ToString() + ".png";
-    string table8 = "images/tables/Table" + tables[7].OpenSeats.ToString() + ".png";
+
+    int i = 7;
+    List<SelectListItem> seatList = new List<SelectListItem> { };
+    seatList.Add(new SelectListItem() { Text = "0", Value = "0" });
+    while (i > 0)
+    {
+        seatList.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+        i--;
+    }
 }
 
 @section scriptsTop{
@@ -24,100 +25,132 @@
 }
 
 <div class="container-fluid justify-content-center">
-    <div class="display-4 text-center" id="intro">
-        Reserve your seats!
+    <h3 class="text-center" id="intro">
+        Purchase tickets or reserve seats for your group!
+    </h3>
+    <br />
+    <div id="buttons" class="row">
+        <div class=" col-sm-6 pb-3 text-center">
+            <button style="width:100%;" class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#groupTickets" aria-expanded="false" aria-controls="collapseExample" id="btnGroupTickets" onclick="hide(this)">
+                Reserve Group Seating
+            </button>
+        </div>
+        <div class=" col-sm-6 pb-3 text-center">
+            <button style="width:100%;" class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#individualTickets" aria-expanded="false" id="btnIndividualTickets" onclick="hide(this)">
+                Individual Tickets
+            </button>
+        </div>
     </div>
     <br />
+    <div id="individualTickets" class="collapse">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <H5 class="text-center">
+                Please <a asp-controller="ApplicationUser"
+                          asp-action="Login">login</a> to purchase tickets
+            </H5>
+        }
+        else
+        {
+
+            <h5 class="text-center">Individual Tickets @Html.DropDownList("seats", new SelectList(seatList, "Value", "Text"), new { id = "singleTicketddList", onchange = "getSingleTicket(this);" })</h5>
+            <hr />
+            <div id="individualTicketArea"></div>
+        }
+    </div>
+    <br />
+
+</div>
+<div class="collapse" id="groupTickets">
     <div id="seatData">
     </div>
-</div>
-<hr />
-<div id="tableArea" class="container-fluid" style="max-width: 550px;">
-    <div class="row justify-content-center pb-3">
-        <div class="col-6">
-            <img class="img-fluid" src="images/tables/VideoScreen.png" />
+    <hr />
+    <div id="tableArea" class="container-fluid" style="max-width: 550px;">
+        <div class="row justify-content-center pb-3">
+            <div class="col-6">
+                <img class="img-fluid" src="images/tables/VideoScreen.png" />
+            </div>
+        </div>
+        <div class="row pb-1">
+            <!-- Container for smaller tables-->
+            <div class="container-fluid col-3">
+                <div class="row">
+                    <div class="col-6">
+                        <a id="1" href="default.asp">
+                            <partial name="_TableSelectPartial" model=@tables[0];>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a id="2" href="default.asp">
+                            <partial name="_TableSelectPartial" model=@tables[1];>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a id="8" href="default.asp">
+                            <partial name="_TableSelectPartial" model=@tables[7];>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a id="9" href="default.asp">
+                            <partial name="_TableSelectPartial" model=@tables[8];>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a id="10" href="default.asp">
+                            <partial name="_TableSelectPartial" model=@tables[9];>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a id="11" href="default.asp">
+                            <partial name="_TableSelectPartial" model=@tables[10];>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a id="12" href="default.asp">
+                            <partial name="_TableSelectPartial" model=@tables[11];>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a id="13" href="default.asp">
+                            <partial name="_TableSelectPartial" model=@tables[12];>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <a id="3" href="default.asp">
+                    <partial name="_TableSelectPartial" model=@tables[2];>
+                </a>
+            </div>
+            <div class="col">
+                <a id="4" href="default.asp">
+                    <partial name="_TableSelectPartial" model=@tables[3];>
+                </a>
+            </div>
+            <div class="col">
+                <a id="5" href="default.asp">
+                    <partial name="_TableSelectPartial" model=@tables[4];>
+                </a>
+            </div>
+            <div class="col">
+                <a id="6" href="default.asp">
+                    <partial name="_TableSelectPartial" model=@tables[5];>
+                </a>
+            </div>
+            <div class="col">
+                <a id="7" href="default.asp">
+                    <partial name="_TableSelectPartial" model=@tables[6];>
+                </a>
+            </div>
         </div>
     </div>
-    <div class="row pb-1">
-        <!-- Container for smaller tables-->
-        <div class="container-fluid col-3">
-            <div class="row">
-                <div class="col-6">
-                    <a id="1" href="default.asp">
-                        <partial name="_TableSelectPartial" model=@tables[0];>
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a id="2" href="default.asp">
-                        <partial name="_TableSelectPartial" model=@tables[1];>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <a id="8" href="default.asp">
-                        <partial name="_TableSelectPartial" model=@tables[7];>
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a id="9" href="default.asp">
-                        <partial name="_TableSelectPartial" model=@tables[8];>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <a id="10" href="default.asp">
-                        <partial name="_TableSelectPartial" model=@tables[9];>
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a id="11" href="default.asp">
-                        <partial name="_TableSelectPartial" model=@tables[10];>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <a id="12" href="default.asp">
-                        <partial name="_TableSelectPartial" model=@tables[11];>
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a id="13" href="default.asp">
-                        <partial name="_TableSelectPartial" model=@tables[12];>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <a id="3" href="default.asp">
-                <partial name="_TableSelectPartial" model=@tables[2];>
-            </a>
-        </div>
-        <div class="col">
-            <a id="4" href="default.asp">
-                <partial name="_TableSelectPartial" model=@tables[3];>
-            </a>
-        </div>
-        <div class="col">
-            <a id="5" href="default.asp">
-                <partial name="_TableSelectPartial" model=@tables[4];>
-            </a>
-        </div>
-        <div class="col">
-            <a id="6" href="default.asp">
-                <partial name="_TableSelectPartial" model=@tables[5];>
-            </a>
-        </div>
-        <div class="col">
-            <a id="7" href="default.asp">
-                <partial name="_TableSelectPartial" model=@tables[6];>
-            </a>
-        </div>
-    </div>
 </div>
-
 @section scripts{
     <script>
         var id;
@@ -134,5 +167,30 @@
                 $('#seatData2').html(res2);
             });
         };
+        @*function getSingleTicket(sel) {
+            var i = sel.value;
+            var tickets = '';
+            while (i > 0) {
+                $.get("@Url.Action("_SingleTicketPartial", "Tables")", function (res2) {
+                    alert(res2);
+                    tickets = tickets + res2;
+                    $('#Tickets').html(tickets);
+                });
+                i--;
+            }
+        }*@
+        function getSingleTicket(sel) {
+            $.get("@Url.Action("_SingleTicketParentPartial", "Tables")?tickets=" + sel.value, function (res2) {
+                $('#individualTicketArea').html(res2);
+            });
+        };
+
+        function hide(btn) {
+            if (btn.id == 'btnIndividualTickets') {
+                $('#groupTickets').removeClass('show');
+            } else {
+                $('#individualTickets').removeClass('show');
+            }
+        }
     </script>
 }

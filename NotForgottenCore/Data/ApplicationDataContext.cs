@@ -21,6 +21,7 @@ namespace NotForgottenCore.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Table> Tables { get; set; }
+        public DbSet<SingleTickets> SingleTickets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

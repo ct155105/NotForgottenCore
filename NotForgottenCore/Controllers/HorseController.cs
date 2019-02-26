@@ -113,7 +113,7 @@ namespace NotForgottenCore.Controllers
                 }
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Race", "Races");
+                return RedirectToAction("Race", "Races", new { raceNbr = raceId });
             }
             return View(horse);
         }

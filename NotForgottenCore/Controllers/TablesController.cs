@@ -60,19 +60,23 @@ namespace NotForgottenCore.Controllers
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
             List<GroupMember> members = new List<GroupMember>();
             Guid groupId = Guid.NewGuid();
+            string ownerName = user.FirstName + " " + user.LastName;
 
             for (int i = nbrSeats; i > 0; i--)
             {
                 GroupMember member = new GroupMember
                 {
                     Id = Guid.NewGuid(),
+                    Name = ownerName,
                     GroupId = groupId
                 };
                 members.Add(member);
+                ownerName = "";
             }
 
             Group group = new Group
             {
+                GroupName = user.LastName + " Group",
                 Id = groupId,
                 NumberSeats = nbrSeats,
                 TableId = tableId,
@@ -106,6 +110,52 @@ namespace NotForgottenCore.Controllers
         public IActionResult _GroupDisplayPartial(Group group)
         {
             return PartialView(group);
+        }
+
+        // GET: Tables/_SingleTicketParentPartial
+        [HttpGet]
+        public async Task<IActionResult> _SingleTicketParentPartial(int tickets)
+        {
+            SingleTicketsCollection singleTicketsCollection = new SingleTicketsCollection();
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+            string name = user.FirstName + " " + user.LastName;
+
+            while (tickets > 0)
+            {
+                SingleTickets ticket = new SingleTickets()
+                {
+                    Id = Guid.NewGuid() ,
+                    Name = name
+                };
+                singleTicketsCollection.SingleTickets.Add(ticket);
+                name = "";
+                tickets--;
+            }
+            return PartialView(singleTicketsCollection);
+        }
+
+        [HttpPost("/Tables/_SingleTicketCreate")]
+        public async Task<IActionResult> _SingleTicketCreate(SingleTicketsCollection tickets)
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            foreach(var ticket in tickets.SingleTickets)
+            {
+
+                if (ModelState.IsValid)
+                {
+                    ticket.ApplicationUserId = user.Id;
+                    _context.Add(ticket);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("TableApp");
+        }
+
+        // GET: Tables/_SingleTicketPartial
+        public IActionResult _SingleTicketPartial()
+        {
+            return PartialView();
         }
 
     }
