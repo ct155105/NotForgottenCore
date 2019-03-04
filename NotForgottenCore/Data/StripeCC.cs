@@ -13,7 +13,7 @@ namespace NotForgottenCore.Data
         public ChargeService Service { get; set; }
         public Charge Charge { get; set; }
 
-        public StripeCC(int amount, string token)
+        public StripeCC(int amount, string token, string email, string description)
         {
 
             Service = new ChargeService();
@@ -21,7 +21,9 @@ namespace NotForgottenCore.Data
             {
                 Amount = amount,
                 Currency = "usd",
-                SourceId = token
+                SourceId = token,
+                ReceiptEmail = email,
+                Description = description
                 //ReceiptEmail = receiptEmail
             };
             Charge = Service.Create(Options);

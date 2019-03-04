@@ -30,11 +30,12 @@
                     @{ if (!User.Identity.IsAuthenticated)
                         {
 
-                            @Html.ActionLink("Register", "Register", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
-                            @*@Html.ActionLink("Login", "Login", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })*@
+                            @*@Html.ActionLink("Register", "Register", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })*@
+                            @Html.ActionLink("Login", "Login", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
                         }
                         else
                         {
+                            @Html.ActionLink("MyReservations", "UserCart", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
                             @Html.ActionLink("Logout", "Logout", "ApplicationUser", null, new { @class = "nav-item nav-link ml-auto" })
                         }
                     }

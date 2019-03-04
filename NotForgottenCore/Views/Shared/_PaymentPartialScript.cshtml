@@ -5,6 +5,7 @@
     //Change key value pair to JSON
     var json = Html.Raw(JsonConvert.SerializeObject(Model.RouteValue));
     var amount = Model.RouteValue["Amount"];
+    var description = Model.RouteValue["Description"];
 }
 
 @* Must Load Stripe.Js at top of Main View (Cannot load from partial view). Inlude this in top of main view:
@@ -82,7 +83,7 @@
 
     function submitCard(token) {
         //var myData = JSON.stringify({ "StripeToken": token, "Amount": $('#amount').val() });
-        var myData = JSON.stringify({ "StripeToken": token, "Amount": @amount });
+        var myData = JSON.stringify({ "StripeToken": token, "Amount": @amount, "Description": "@description" });
         $.ajax({
             url: '@this.Url.Action("Pay", "Payment")',
             type: "POST",

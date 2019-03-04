@@ -6,6 +6,7 @@
     ViewData["Title"] = "Create";
     Router router = new Router { Action = "Create", Controller = "Horse" };
     router.RouteValue.Add("Amount", "1000");
+    router.RouteValue.Add("Description", "NotForgotten Horse");
 }
 
 @section scriptsTop{

@@ -59,6 +59,15 @@
     <Content Update="Views\ApplicationUser\Login.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\ApplicationUser\_GroupDisplayPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\ApplicationUser\_GroupMemberDisplayPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\ApplicationUser\_LanePartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\2018_HP.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

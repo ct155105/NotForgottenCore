@@ -1,0 +1,12 @@
+﻿@model NotForgottenCore.Models.Group
+@using NotForgottenCore.Models
+
+
+<div class="card mb-2">
+    <div class="card-header">
+        <div class="card-title">@Model.GroupName</div>
+    </div>
+    <div class="card-body">
+        <partial name="_GroupMemberDisplayPartial" for="Members" />
+    </div>
+</div>

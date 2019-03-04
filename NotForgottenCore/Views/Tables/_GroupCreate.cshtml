@@ -6,6 +6,7 @@
 
     Router router = new Router { Action = "_GroupCreate", Controller = "Tables" };
     router.RouteValue.Add("Amount", amount.ToString());
+    router.RouteValue.Add("Description", "NotForgotten Table Reservation");
 }
 
 <div class="row justify-content-center">

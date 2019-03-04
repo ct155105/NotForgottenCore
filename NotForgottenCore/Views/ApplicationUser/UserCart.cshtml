@@ -1,0 +1,65 @@
+﻿@model NotForgottenCore.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "UserCart";
+    var intAmount = Convert.ToInt32(Model.Balance);
+    var decimalAmount = (decimal)intAmount / 100;
+    var displayAmount = String.Format("{0:0.00}", decimalAmount);
+}
+<div class="container-fluid text-center">
+    <h3>Thank you for your support!</h3>
+    <hr />
+    <div>
+        <h4><strong>@Model.FirstName @Model.LastName</strong></h4>
+        <h6>Balance: <strong>$@displayAmount</strong></h6>
+        <h6>Please send check to: </h6>
+        <br />
+        <address>
+            Notforgotten Inc. <br />
+            697 Buff CT<br />
+            Cincinnati, OH 45231<br />
+        </address>
+        <p>(Or bring check/cash with you night of the event)</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="border" style="width:100%">
+                <h5>Groups</h5>
+            </div>
+            @foreach (var group in Model.Groups)
+            {
+                <strong>@group.GroupName</strong><br />
+                @foreach (var member in group.Members)
+                {
+                    <text>@member.Name</text><br />
+                }
+            }
+        </div>
+        <br />
+        <div class="col-sm-6 col-md-4">
+            <div class="border" style="width:100%">
+                <h5>Individual Tickets</h5>
+            </div>
+            @foreach (var ticket in Model.SingleTickets)
+            {
+                <text>@ticket.Name</text><br />
+            }
+        </div>
+        <br />
+        <div class="col-sm-6 col-md-4">
+            <div class="border" style="width:100%">
+                <h5>Horses</h5>
+            </div>
+            @foreach (var horse in Model.Horses)
+            {
+                <strong>@horse.Name</strong><br />
+                <text>@horse.Trainer</text><br />
+                @foreach (var race in horse.Races)
+                {
+                    <text>Race# @race.Id</text><br />
+                    <text>Lane @race.LaneId</text><br />
+                }
+            }
+        </div>
+    </div>
+</div>

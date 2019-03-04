@@ -29,8 +29,8 @@ namespace NotForgottenCore.Models
         public string ConfirmPassword { get; set; }
 
         public int Balance { get; set; }
-        public ICollection<Horse> Horses { get; set; }
-        public ICollection<Group> Groups { get; set; }
-        public ICollection<SingleTickets> SingleTickets { get; set; }
+        public List<Horse> Horses { get; set; }
+        public List<Group> Groups { get; set; }
+        public List<SingleTickets> SingleTickets { get; set; }
     }
 }

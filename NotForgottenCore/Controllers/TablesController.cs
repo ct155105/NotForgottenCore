@@ -26,6 +26,10 @@ namespace NotForgottenCore.Controllers
         [HttpGet("/Tables")]
         public async Task<IActionResult> TableApp()
         {
+            HttpContext.Session.SetString("redirect", "true");
+            HttpContext.Session.SetString("action", "TableApp");
+            HttpContext.Session.SetString("controller", "Tables");
+
             return View(await _context.Tables.ToListAsync());
         }
 
@@ -100,7 +104,7 @@ namespace NotForgottenCore.Controllers
                 //    _context.Add(member);
                 //}
                 await _context.SaveChangesAsync();
-                return RedirectToAction("TableApp");
+                return RedirectToAction("UserCart", "ApplicationUser");
             }
             return View(group);
         }
@@ -149,7 +153,7 @@ namespace NotForgottenCore.Controllers
                     await _context.SaveChangesAsync();
                 }
             }
-            return RedirectToAction("TableApp");
+            return RedirectToAction("UserCart", "ApplicationUser");
         }
 
         // GET: Tables/_SingleTicketPartial

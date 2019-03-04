@@ -34,6 +34,22 @@ namespace NotForgottenCore.Controllers
                 .ToListAsync());
         }
 
+        [Route("/Cart")]
+        public async Task<IActionResult> UserCart()
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            ApplicationUser cartUser = await _context.ApplicationUser
+                .Include(t => t.Groups)
+                .ThenInclude(g => g.Members)
+                .Include(o => o.Horses)
+                .ThenInclude(h => h.Races)
+                .Include(t => t.SingleTickets)
+                .FirstOrDefaultAsync(m => m.Id == user.Id);
+
+            return View(cartUser);
+        }
+
         [HttpGet("/Register")]
         public IActionResult Register()
         {

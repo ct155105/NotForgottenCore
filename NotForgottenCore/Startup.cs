@@ -40,7 +40,7 @@ namespace NotForgottenCore
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             var connection = Configuration.GetConnectionString("CTLocal");
-            var stripeApiKey = Configuration.GetSection("stripeApiKeys").GetValue<string>("TestSecret");
+            var stripeApiKey = Configuration.GetSection("stripeApiKeys_Test").GetValue<string>("Secret");
             services.AddDbContext<ApplicationDataContext>(options => options.UseSqlServer(connection));
 
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
@@ -51,6 +51,7 @@ namespace NotForgottenCore
             services.AddSession();
 
             StripeConfiguration.SetApiKey(stripeApiKey);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

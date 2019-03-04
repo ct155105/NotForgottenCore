@@ -9,5 +9,6 @@ namespace NotForgottenCore.Data
     {
         public string StripeToken { get; set; }
         public int Amount { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -23,9 +23,11 @@ namespace NotForgottenCore.Controllers
             _context = context;
         }
 
-        public IActionResult Pay([FromBody] stripeTokenPlaceholder stripeTokenP)
+        public async Task<IActionResult> Pay([FromBody] stripeTokenPlaceholder stripeTokenP)
         {
-            StripeCC stripe = new StripeCC(stripeTokenP.Amount, stripeTokenP.StripeToken);
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            StripeCC stripe = new StripeCC(stripeTokenP.Amount, stripeTokenP.StripeToken, user.Email, stripeTokenP.Description);
 
             var data = new { };
 
