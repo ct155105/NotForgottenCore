@@ -7,7 +7,7 @@ namespace NotForgottenCore.Data
 {
     public class StripeVariables
     {
-        public string Secret { get; set; }
+        private string Secret { get; set; }
         public string Public { get; set; }
     }
 }

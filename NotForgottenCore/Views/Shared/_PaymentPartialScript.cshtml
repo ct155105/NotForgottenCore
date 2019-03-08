@@ -1,11 +1,14 @@
 ﻿@model NotForgottenCore.Models.Router
 @using Newtonsoft.Json;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 
 @{
     //Change key value pair to JSON
     var json = Html.Raw(JsonConvert.SerializeObject(Model.RouteValue));
     var amount = Model.RouteValue["Amount"];
     var description = Model.RouteValue["Description"];
+    var stripePublicKey = Configuration.GetSection("stripeApiKeys").GetValue<string>("Public");
 }
 
 @* Must Load Stripe.Js at top of Main View (Cannot load from partial view). Inlude this in top of main view:
@@ -16,55 +19,55 @@
 <script>
     // Create a Stripe client.
     // ****CT**** Need to parameterize this
-    var stripe = Stripe('pk_test_N2HYRBeaiImpxPRGc3rc44ly');
-    var counter = 0;
-    // Create an instance of Elements.
-    var elements = stripe.elements();
-    var style = {
+    var stripe = Stripe('@stripePublicKey');
+                var counter = 0;
+                // Create an instance of Elements.
+                var elements = stripe.elements();
+                var style = {
         base: {
-            color: '#32325d',
+                color: '#32325d',
             lineHeight: '18px',
             width: '200px',
             fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
             fontSmoothing: 'antialiased',
             fontSize: '16px',
             '::placeholder': {
-                color: '#aab7c4'
+                    color: '#aab7c4'
             }
-        },
+                },
         invalid: {
-            color: '#fa755a',
+                color: '#fa755a',
             iconColor: '#fa755a'
         }
-    };
-    // Create an instance of the card Element.
-    var card = elements.create('card', { style: style });
+            };
+            // Create an instance of the card Element.
+            var card = elements.create('card', { style: style });
 
     $('input[type=radio][name=radio]').change(function () {
-        if (counter == 0) {
-            stripefunction();
-            counter++;
-        }
+            if (counter == 0) {
+                stripefunction();
+                counter++;
+            }
 
-        if (this.id == 'payCash') {
-            if (this.checked == true) {
+            if (this.id == 'payCash') {
+                if (this.checked == true) {
                 $('#card-element').addClass('d-none');
-            }
-            }
-            else {
+                    }
+                    }
+                else {
                 $('#card-element').removeClass('d-none');
-            }
-        });
+                }
+            });
 
-    function stripefunction() {
+            function stripefunction() {
 
-        // Add an instance of the card Element into the `card-element` <div>
-        card.mount('#card-element');
+                // Add an instance of the card Element into the `card-element` <div>
+                card.mount('#card-element');
 
-        // Handle real-time validation errors from the card Element.
-        card.addEventListener('change', function (event) {
-            var displayError = document.getElementById('card-errors');
-            if (event.error) {
+                // Handle real-time validation errors from the card Element.
+                card.addEventListener('change', function (event) {
+                    var displayError = document.getElementById('card-errors');
+                    if (event.error) {
                 displayError.textContent = event.error.message;
             } else {
                 displayError.textContent = '';
@@ -75,7 +78,7 @@
 
     function submitForm() {
         return $.ajax({
-            type: "POST",
+        type: "POST",
             url: '@this.Url.Action( Model.Action, Model.Controller)',
             data: $('#MainForm').serialize(),
         });
@@ -85,7 +88,7 @@
         //var myData = JSON.stringify({ "StripeToken": token, "Amount": $('#amount').val() });
         var myData = JSON.stringify({ "StripeToken": token, "Amount": @amount, "Description": "@description" });
         $.ajax({
-            url: '@this.Url.Action("Pay", "Payment")',
+        url: '@this.Url.Action("Pay", "Payment")',
             type: "POST",
             contentType: "application/json",
             dataType: "json",
@@ -100,7 +103,7 @@
     function payCash() {
         var myData = JSON.stringify(@json);
         $.ajax({
-            url: '@this.Url.Action("PayCash", "Payment")',
+        url: '@this.Url.Action("PayCash", "Payment")',
             type: "POST",
             contentType: "application/json",
             dataType: "json",

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -17,12 +20,14 @@ namespace NotForgottenCore.Controllers
         private SignInManager<ApplicationUser> _signManager;
         private UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDataContext _context;
+        private readonly IEmailSender _emailSender;
 
-        public ApplicationUserController(ApplicationDataContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signManager)
+        public ApplicationUserController(ApplicationDataContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signManager = signManager;
             _context = context;
+            _emailSender = emailSender;
         }
 
         // GET: UserInfo
@@ -142,6 +147,94 @@ namespace NotForgottenCore.Controllers
         {
             await _signManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet("/ForgotPassword")]
+        public IActionResult ForgotPassword()
+        {
+            ViewData["NoEmail"] = null;
+            return View();
+        }
+
+        [HttpGet("/ForgotPasswordConfirmation")]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpPost("/ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword(ForgottenPassword input)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(input.Email);
+                if (user == null)// || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    ViewData["NoEmail"] = "No account for that email address exists";
+                    return View();
+                }
+
+                // For more information on how to enable account confirmation and password reset please 
+                // visit https://go.microsoft.com/fwlink/?LinkID=532713
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                code = WebUtility.UrlEncode(code);
+                var callbackUrl = $"{this.Request.Scheme}://{this.Request.Host}/ResetPassword?code={code}";
+                //var callbackUrl = Url.Action("ResetPassword", "ApplicationUser", new { code });
+
+                await _emailSender.SendEmailAsync(
+                        input.Email,
+                        "Reset Password",
+                        $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                return Redirect("/ForgotPasswordConfirmation");
+            }
+
+            return View();
+        }
+
+        [HttpGet("/ResetPassword")]
+        public IActionResult ResetPassword(string code = null)
+        {
+            if (code == null)
+            {
+                return BadRequest("A code must be supplied for password reset.");
+            }
+            else
+            {
+                ResetPassword password = new ResetPassword()
+                {
+                    Code = code
+                };
+                return View(password);
+            }
+        }
+
+        [HttpPost("/ResetPassword")]
+        public async Task<IActionResult> ResetPassword(ResetPassword input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var user = await _userManager.FindByEmailAsync(input.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return Redirect("/Login");
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, input.Code, input.Password);
+            if (result.Succeeded)
+            {
+                return Redirect("/Login");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return Redirect("/Login");
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,17 +41,24 @@ namespace NotForgottenCore
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             var connection = Configuration.GetConnectionString("CTLocal");
-            var stripeApiKey = Configuration.GetSection("stripeApiKeys_Test").GetValue<string>("Secret");
+            var stripeApiKey = Configuration.GetSection("stripeApiKeys").GetValue<string>("Secret");
             services.AddDbContext<ApplicationDataContext>(options => options.UseSqlServer(connection));
 
-            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
+            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()/*config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })*/
                 .AddEntityFrameworkStores<ApplicationDataContext>()
                 .AddDefaultTokenProviders();
+
 
             services.AddDistributedMemoryCache();
             services.AddSession();
 
             StripeConfiguration.SetApiKey(stripeApiKey);
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<EmailSettings>(Configuration.GetSection("sendGridKeys"));
 
         }
 
