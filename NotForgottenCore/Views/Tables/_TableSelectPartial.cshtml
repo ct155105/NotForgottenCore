@@ -1,9 +1,17 @@
 ﻿@model NotForgottenCore.Models.Table
 
 @{
+
+    int nbrOpenSeats = Model.OpenSeats;
+    string tableFull = "";
     string openSeats = Model.OpenSeats.ToString();
 
-    //Test Purposes
+    if (nbrOpenSeats < 8)
+    {
+        tableFull = "_full";
+    }
+
+    //Number seats hard coded. Need to create images for different number of seats.
     if(Model.TableType == "short")
     {
         openSeats = "12";
@@ -17,7 +25,7 @@
         openSeats = "36";
     }
 
-    string source = "images/tables/" + Model.TableType + "_" + openSeats + ".svg";
+    string source = "images/tables/" + Model.TableType + "_" + openSeats + tableFull + ".svg";
 }
 
 <img class="img-fluid" src="@source" />

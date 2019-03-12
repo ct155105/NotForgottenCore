@@ -78,16 +78,15 @@
     <Content Update="Views\Tables\TableApp - Original.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Tables\TableApp.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Tables\_GroupDisplayPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Tables\_GroupMemberDisplayPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
 </Project>

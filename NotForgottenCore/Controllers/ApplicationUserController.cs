@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -32,6 +33,7 @@ namespace NotForgottenCore.Controllers
 
         // GET: UserInfo
         [Route("/userinfo")]
+        [Authorize]
         public async Task<IActionResult> UserInfo()
         {
             return View(await _context.Users

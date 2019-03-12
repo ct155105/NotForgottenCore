@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "d944123a21794c428312e0bb8a1d2f4762be852e"
+    "signature": "0a64751aace438849382ec33d3ef8ee7aeee515e"
   },
   "compilationOptions": {
     "defines": [
@@ -38,6 +38,7 @@
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.6",
           "Newtonsoft.Json": "12.0.1",
+          "Sendgrid": "9.10.0",
           "Stripe.net": "22.8.1",
           "jQuery": "3.3.1"
         },
@@ -823,6 +824,21 @@
         },
         "compile": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
+        }
+      },
+      "Sendgrid/9.10.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.1.1",
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {
+            "assemblyVersion": "9.10.0.0",
+            "fileVersion": "9.10.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/SendGrid.dll": {}
         }
       },
       "Stripe.net/22.8.1": {
@@ -3929,6 +3945,13 @@
       "sha512": "sha512-fK/76UmpC0FXBlGDFVPLJHQlDLYnGC+XY3eoDgCgbtrhi0vzbXDQ3n/IYHhqSKqXQfGw/u04A1drWs7rFVkRjw==",
       "path": "remotion.linq/2.2.0",
       "hashPath": "remotion.linq.2.2.0.nupkg.sha512"
+    },
+    "Sendgrid/9.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i6208SyPFvZ5bJRUbOimhBF/axjhiS4xQX71+KWPhzWUJGHbGX+yfwPrUg5y0D3deQlQz94mHeWF6AGHSZ81jQ==",
+      "path": "sendgrid/9.10.0",
+      "hashPath": "sendgrid.9.10.0.nupkg.sha512"
     },
     "Stripe.net/22.8.1": {
       "type": "package",
