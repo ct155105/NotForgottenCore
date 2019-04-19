@@ -3,7 +3,6 @@
 
 #CT Files to ignore
 appsettings.json
-NotForgottenCore/wwwroot/images
 
 # User-specific files
 *.suo

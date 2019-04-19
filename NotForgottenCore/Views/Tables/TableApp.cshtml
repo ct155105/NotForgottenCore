@@ -3,8 +3,9 @@
     ViewData["Title"] = "TableApp";
 }
 
+<h1>Tickets are no longer available online for 2019. Please purchase tickets at the door on the night of the event.</h1>
 
-@using NotForgottenCore.Models;
+@*@using NotForgottenCore.Models;
 
 @{
     List<Table> tables = Model.ToList();
@@ -43,6 +44,14 @@
     </div>
     <br />
     <div id="individualTickets" class="collapse">
+        <div>
+            Individual tickets are no longer available online at this time. Please     <a class="text-primary"
+                                                                                          asp-controller="Home"
+                                                                                          asp-action="Contact">
+                Contact Us
+            </a>
+            to purchase tickets.
+        </div>
         @if (!User.Identity.IsAuthenticated)
         {
             <H5 class="text-center">
@@ -132,7 +141,7 @@
                 });
                 i--;
             }
-        }*@
+        }
         function getSingleTicket(sel) {
             $.get("@Url.Action("_SingleTicketParentPartial", "Tables")?tickets=" + sel.value, function (res2) {
                 $('#individualTicketArea').html(res2);
@@ -147,4 +156,4 @@
             }
         }
     </script>
-}
+}*@

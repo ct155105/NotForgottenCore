@@ -1,7 +1,9 @@
 ﻿@model NotForgottenCore.Models.Horse
 @using NotForgottenCore.Models
 
-@{
+<h2>Horses are no longer reservable for 2019. Please check back next year!</h2>
+
+@*@{
     //*****CT**** Should add router object to other models so we don't need to create in each view
     ViewData["Title"] = "Create";
     Router router = new Router { Action = "Create", Controller = "Horse" };
@@ -43,4 +45,4 @@
 @section scripts{
     <partial name="_PaymentPartialScript"
              model=router />
-}
+}*@

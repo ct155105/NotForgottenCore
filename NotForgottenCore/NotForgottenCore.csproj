@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>41900e7a-1ca1-4a56-8bc3-1518e90df186</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/4899904c-9458-4ec2-8852-16a3b279d475/resourcegroups/NOTFORGOTTENCTDEPLOY/providers/microsoft.insights/components/NotForgottenCore</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/4899904c-9458-4ec2-8852-16a3b279d475/resourcegroups/NOTFORGOTTENCTDEPLOY/providers/microsoft.insights/components/NotForgottenCore</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +37,7 @@
 
   <ItemGroup>
     <PackageReference Include="jQuery" Version="3.3.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.6" />
@@ -87,6 +90,10 @@
     <Content Update="Views\Tables\_GroupMemberDisplayPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
